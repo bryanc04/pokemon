@@ -4,6 +4,7 @@ import restart from 'vite-plugin-restart';
 import glsl from 'vite-plugin-glsl';
 
 export default defineConfig({
+    base: '/', // Replace this with the actual base path your app will be served from
     root: 'src/', // Source files (typically where index.html is)
     publicDir: '../static/', // Path from "root" to static assets (files that are served as they are)
     server: {
@@ -21,5 +22,4 @@ export default defineConfig({
         glsl(), // Support GLSL files
         restart({ restart: ['../static/**'] }) // Restart server on static file change
     ],
-
 });
