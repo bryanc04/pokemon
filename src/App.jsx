@@ -5,15 +5,14 @@ import { Gltf, OrbitControls, Box, Stats, Sphere, Cone, Text3D} from '@react-thr
 import DogModel from './components/DogModel'
 import SoccerBall from './components/SoccerBall'
 import React, { useRef, useEffect, useState, Suspense } from 'react';
-import CameraController from './components/CameraController';
 import  AxesHelper from './components/AxesHelper';
-import * as THREE from 'three';
 import PokeCenter from './components/PokeCenter';
 import MapModel from './components/MapModel';
 
 export default function App() {
   const playerRef = useRef();
   const ballRef = useRef();
+  const rotate = useRef();
   const [isCenter, setIsCenter] = useState(false);
   const [cameraFlag, setCameraFlag] = useState(true);
   const [curPage, setCurPage] = useState(null);
@@ -36,7 +35,7 @@ export default function App() {
      camera={{ position: [0, 6, 14], wfov: 42 }}>
       <Suspense>
 
-      <Physics gravity={[0, -1, 0]}  >
+      <Physics gravity={[0, -1, 0]} debug >
       <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
       <ambientLight intensity={2} />
 {  isCenter ? <>
