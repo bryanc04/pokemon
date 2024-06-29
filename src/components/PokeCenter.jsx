@@ -1,7 +1,7 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useLoader, useFrame,useThree } from '@react-three/fiber';
 import { Physics, RigidBody } from '@react-three/rapier'
-import { Gltf, OrbitControls, Box, Stats, Text3D } from '@react-three/drei'
+import { Gltf, OrbitControls, Box, Stats, Text3D, useProgress } from '@react-three/drei'
 import StandingDog from './StandingDog';
 import React, { useRef, useEffect, useState, forwardRef, Suspense } from 'react';
 import About from '../pages/About';
@@ -22,7 +22,8 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
     const keysPressed1 = useRef({ arrowup: false, arrowup: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
-    console.log(pokeCenterModel)
+    const {progress} = useProgress()
+    console.log(progress)
     
 
     useEffect(() => {
@@ -72,6 +73,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
 
 
   return (
+    <Suspense fallback={<Box args={[10,1,10]} position={[0,0,-10]}/>}>
 <RigidBody type="fixed" colliders="trimesh">
     {curPage ?      <PageComponent {...props} />
  : 
@@ -118,6 +120,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
           scale={0.3} 
         />
         </RigidBody>
+        </Suspense>
   );
 };
 

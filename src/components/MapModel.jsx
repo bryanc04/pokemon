@@ -3,13 +3,14 @@ import { Canvas, useFrame } from '@react-three/fiber'
 import { useLoader } from '@react-three/fiber';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { RigidBody } from '@react-three/rapier';
-import {Box, Gltf, Cone, Text3D, Center} from '@react-three/drei'
+import {Box, Gltf, Cone, Text3D, Center, useProgress} from '@react-three/drei'
 import * as THREE from 'three';
 
 const MapModel = () => {
   const rotate = useRef()
   const rotatebox = useRef()
-
+  const {progress} = useProgress()
+  console.log(progress)
   // useEffect(() => {
   //   if (rotate.current) {
   //     rotate.current.geometry.computeBoundingBox();
@@ -37,9 +38,10 @@ const MapModel = () => {
 
   </Text3D>
 
-  <RigidBody type="fixed" colliders="trimesh">
+ <RigidBody type="fixed" colliders="trimesh">
     <Gltf castShadow receiveShadow position={[0, 0, 0]} rotation={[0, Math.PI, 0]} scale={0.12} src="./assets/town.glb" friction={2} />
-  </RigidBody></> 
+  </RigidBody>
+  </> 
   );
 };
 
