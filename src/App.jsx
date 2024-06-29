@@ -9,7 +9,7 @@ import  AxesHelper from './components/AxesHelper';
 import PokeCenter from './components/PokeCenter';
 import MapModel from './components/MapModel';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-
+import Loadingscreen from './components/Loadingscreen';
 
 export default function App() {
   const playerRef = useRef();
@@ -33,17 +33,17 @@ export default function App() {
   }, [pokeCenterModel])
 
 
-  console.log(progress)
 
 
 
 
   
   return (
+    <Suspense fallback={<Loadingscreen percent={progress}/>}>
     <Canvas shadow 
     // onPointerDown={(e) => e.target.requestPointerLock()}
      camera={{ position: [0, 6, 14], wfov: 42 }}>
-      <Suspense>
+
 
       <Physics gravity={[0, -1, 0]}  >
       <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
@@ -79,7 +79,8 @@ export default function App() {
       <Stats/>
 
       <AxesHelper />
-      </Suspense>
+      
     </Canvas>
+    </Suspense>
   )
 }
