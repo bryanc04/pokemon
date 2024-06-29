@@ -1,7 +1,7 @@
 import { Canvas, useFrame,useLoader } from '@react-three/fiber'
 import StandingDog from './components/StandingDog'
 import { Physics, RigidBody } from '@react-three/rapier'
-import { Gltf, OrbitControls, Box, Stats, Sphere, Cone, Text3D} from '@react-three/drei'
+import { Gltf, OrbitControls, Box, Stats, Sphere, Cone, Text3D, useProgress} from '@react-three/drei'
 import DogModel from './components/DogModel'
 import SoccerBall from './components/SoccerBall'
 import React, { useRef, useEffect, useState, Suspense } from 'react';
@@ -21,14 +21,17 @@ export default function App() {
   const [pokeCenterLoaded, setPokeCenterLoaded] = useState(false);
 
 
-  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter2.glb');
+  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter1.glb');
 
+ 
   useEffect(() => {
     if (pokeCenterModel) {
       setPokeCenterLoaded(true);
     }
   }, [pokeCenterModel]);
 
+  const {progress} = useProgress()
+  console.log(progress)
 
 
 
@@ -57,7 +60,7 @@ export default function App() {
           <Gltf position={[0, 0, -5]} rotation={[0, 0, 0]} scale={0.05} src="./assets/soccerball.glb" />
         </RigidBody> */}
 
-<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel}/>
+<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setPokeCenterLoaded={setPokeCenterLoaded}/>
 </Suspense>
 :     
 <>

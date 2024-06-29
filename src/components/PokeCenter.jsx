@@ -18,12 +18,20 @@ const pages = {
     'Honors': Honors,
     'Fun Facts!': () => <></>
   };
-const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel}) => {
+const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel, setPokeCenterLoaded}) => {
     const keysPressed1 = useRef({ arrowup: false, arrowup: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
     const {progress} = useProgress()
-    console.log(progress)
+    console.log("f")
+    useEffect(() =>{
+        console.log(progress)
+        if (progress == 100){
+        
+            setPokeCenterLoaded(true)
+        }
+    }
+    ,[progress])
     
 
     useEffect(() => {
