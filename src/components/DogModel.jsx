@@ -150,7 +150,6 @@ const curPage = props.props[4];
       // if (keysPressed.current.enter){}
 
         props.props[1](!props.props[0])
-        console.log("entered")
       
     }
   }else{

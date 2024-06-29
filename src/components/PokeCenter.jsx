@@ -22,6 +22,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage}) => {
     const keysPressed1 = useRef({ arrowup: false, arrowup: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
+    console.log("entered")
 
     useEffect(() => {
 
