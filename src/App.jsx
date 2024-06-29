@@ -19,30 +19,24 @@ export default function App() {
   const [cameraFlag, setCameraFlag] = useState(true);
   const [curPage, setCurPage] = useState(null);
   const [pokeCenterLoaded, setPokeCenterLoaded] = useState(false);
+  const { active, progress, errors, item, loaded, total } = useProgress()
+  const [dogLoad, setDogLoad] = useState(false);
 
-
-  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter1.glb');
-
+  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter2.glb');
+  console.log(active, progress, errors, item, loaded, total)
  
   useEffect(() => {
-    if (pokeCenterModel) {
+    if (pokeCenterModel && progress==100 ) {
       setPokeCenterLoaded(true);
+      console.log("Loaded")
     }
-  }, [pokeCenterModel]);
+  }, [pokeCenterModel])
 
-  const {progress} = useProgress()
+
   console.log(progress)
 
 
 
-
-
-  useEffect(()=>{
-    // if (playerRef.current){
-    //   console.log(playerRef.current.position)
-    // }
-    console.log(isCenter)
-    },[isCenter])
 
   
   return (
@@ -54,14 +48,15 @@ export default function App() {
       <Physics gravity={[0, -1, 0]}  >
       <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
       <ambientLight intensity={2} />
-{  isCenter && pokeCenterLoaded ? <Suspense>
-<DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />
+{  isCenter && pokeCenterLoaded ? 
+<>
+{dogLoad && <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />}
 {/* <RigidBody type="kinematicVelocity">
           <Gltf position={[0, 0, -5]} rotation={[0, 0, 0]} scale={0.05} src="./assets/soccerball.glb" />
         </RigidBody> */}
 
-<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setPokeCenterLoaded={setPokeCenterLoaded}/>
-</Suspense>
+<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setDogLoad={setDogLoad}/>
+</>
 :     
 <>
  <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />

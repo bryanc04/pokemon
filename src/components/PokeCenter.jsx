@@ -1,7 +1,7 @@
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 import { useLoader, useFrame,useThree } from '@react-three/fiber';
 import { Physics, RigidBody } from '@react-three/rapier'
-import { Gltf, OrbitControls, Box, Stats, Text3D, useProgress } from '@react-three/drei'
+import { Gltf, OrbitControls, Box, Stats, Text3D, useProgress, Cylinder } from '@react-three/drei'
 import StandingDog from './StandingDog';
 import React, { useRef, useEffect, useState, forwardRef, Suspense } from 'react';
 import About from '../pages/About';
@@ -18,8 +18,8 @@ const pages = {
     'Honors': Honors,
     'Fun Facts!': () => <></>
   };
-const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel, setPokeCenterLoaded}) => {
-    const keysPressed1 = useRef({ arrowup: false, arrowup: false, enter: false});
+const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel, setDogLoad}) => {
+    const keysPressed1 = useRef({ arrowup: false, arrowdown: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
     const {progress} = useProgress()
@@ -28,7 +28,8 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
         console.log(progress)
         if (progress == 100){
         
-            setPokeCenterLoaded(true)
+            setDogLoad(true)
+    
         }
     }
     ,[progress])
@@ -81,7 +82,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
 
 
   return (
-    <Suspense fallback={<Box args={[10,1,10]} position={[0,0,-10]}/>}>
+  <>{  progress==100 ?
 <RigidBody type="fixed" colliders="trimesh">
     {curPage ?      <PageComponent {...props} />
  : 
@@ -125,10 +126,20 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
           receiveShadow 
           position={[0, -0, -4]} 
           rotation={[0, 0, 0]} 
-          scale={0.3} 
+          scale={0.3} w
         />
         </RigidBody>
-        </Suspense>
+         : 
+        <>       
+         <Cylinder position={[0,-1.4,-4]} args={[1,0.05*progress,1]} rotation={[Math.PI/2-0.7, 0,0]}>
+    <meshStandardMaterial color={"white"}/>
+        </Cylinder>
+        <Box position={[0,-1.4,-6]} args={[10,10,1]} rotation={[-0.7,0,0]}>
+    <meshStandardMaterial color={"black"}/>
+        </Box>
+
+        </>
+        }</>
   );
 };
 
