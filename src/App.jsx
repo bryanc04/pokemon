@@ -35,7 +35,7 @@ export default function App() {
      camera={{ position: [0, 6, 14], wfov: 42 }}>
       <Suspense>
 
-      <Physics gravity={[0, -1, 0]} debug >
+      <Physics gravity={[0, -1, 0]}  >
       <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
       <ambientLight intensity={2} />
 {  isCenter ? <>
