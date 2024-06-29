@@ -1,0 +1,8 @@
+Model Information:
+* title:	Dog - Pomeranian Spitz
+* source:	https://sketchfab.com/3d-models/dog-pomeranian-spitz-40326a14616e43ca81f07738967810e5
+* author:	RedDeer (https://sketchfab.com/billl90)
+
+Model License:
+* license type:	SKETCHFAB Standard (https://sketchfab.com/licenses)
+* requirements:	Under basic restrictions, use worldwide, on all types of media, commercially or not, and in all types of derivative works

@@ -1,0 +1,30 @@
+{
+    "0": {
+        "name": "STTP",
+        "date": "2024 - Present",
+        "description": "- To be updated -"
+    },
+    "1": {
+        "name": "Full Stack Development | The Loomis Chaffee School",
+        "date": "2023-2024",
+        "description": "Created a full stack application with a for the Deans’ Office at Loomis Chafee that assigns students into dorms (a process that usually took 3+ weeks over summer) based on student survey through the Genetic Algorithm and Linear Programming. The software is currently in use by the deans."
+    },"2": {
+        "name": "Research Intern | UCSC (Science Internship Program)",
+        "date": "2023",
+        "description": "Worked on researching novel contexts to apply the WaveFunctionCollapse Algorihtm. Specifically, I analyzed the algorithm's ability to generate text from patters, applying conventional NLG strategies and comparing against state-of-the-art NLG architectures."
+    },
+    "3": {
+        "name": "Full Stack Development | The Loomis Chaffee School",
+        "date": "2022-2023",
+        "description": "Created a web-app for Loomis Chaffee's Chemistry department (accesible to Loomis students enrolled in any Chemistry course) that allows users to visuallize molecules in 2D/3D and compare with gemoetries predicted by VSEPR theory. The software is currently in use by the school."
+    },"4": {
+        "name": "Software Development Intern | Carnegie Mellon University / RIT",
+        "date": "2021-2022",
+        "description": "Created a web system to easily access data obtained during the lab's studies of primates."
+    }, "5": {
+        "name": "Software Development Intern | Samsung Cheil",
+        "date": "2021-2022",
+        "description": "Created a dashboard for marketers to see and compare available public billboards for advertising purposes. Researched the needs and requirements of the marketers and provided integration with backend database" 
+
+    }
+}
