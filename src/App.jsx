@@ -1,4 +1,4 @@
-import { Canvas, useFrame } from '@react-three/fiber'
+import { Canvas, useFrame,useLoader } from '@react-three/fiber'
 import StandingDog from './components/StandingDog'
 import { Physics, RigidBody } from '@react-three/rapier'
 import { Gltf, OrbitControls, Box, Stats, Sphere, Cone, Text3D} from '@react-three/drei'
@@ -8,6 +8,8 @@ import React, { useRef, useEffect, useState, Suspense } from 'react';
 import  AxesHelper from './components/AxesHelper';
 import PokeCenter from './components/PokeCenter';
 import MapModel from './components/MapModel';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
 
 export default function App() {
   const playerRef = useRef();
@@ -16,6 +18,17 @@ export default function App() {
   const [isCenter, setIsCenter] = useState(false);
   const [cameraFlag, setCameraFlag] = useState(true);
   const [curPage, setCurPage] = useState(null);
+  const [pokeCenterLoaded, setPokeCenterLoaded] = useState(false);
+
+
+  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter2.glb');
+
+  useEffect(() => {
+    if (pokeCenterModel) {
+      setPokeCenterLoaded(true);
+    }
+  }, [pokeCenterModel]);
+
 
 
 
@@ -38,17 +51,17 @@ export default function App() {
       <Physics gravity={[0, -1, 0]}  >
       <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
       <ambientLight intensity={2} />
-{  isCenter ? <>
-<DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage]} />
+{  isCenter && pokeCenterLoaded ? <Suspense>
+<DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />
 {/* <RigidBody type="kinematicVelocity">
           <Gltf position={[0, 0, -5]} rotation={[0, 0, 0]} scale={0.05} src="./assets/soccerball.glb" />
         </RigidBody> */}
 
-<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage}/>
-</>
+<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel}/>
+</Suspense>
 :     
 <>
- <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage]} />
+ <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />
         <SoccerBall playerRef={playerRef} ballRef={ballRef} />
                           
 

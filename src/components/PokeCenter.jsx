@@ -18,11 +18,12 @@ const pages = {
     'Honors': Honors,
     'Fun Facts!': () => <></>
   };
-const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage}) => {
+const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel}) => {
     const keysPressed1 = useRef({ arrowup: false, arrowup: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
-    console.log("entered")
+    console.log(pokeCenterModel)
+    
 
     useEffect(() => {
 
@@ -108,7 +109,14 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage}) => {
     <meshStandardMaterial color={'blue'} />
 
   </Text3D>        <StandingDog/>
-          <Gltf castShadow receiveShadow position={[0, -0, -4]} rotation={[0, 0, 0]} scale={0.3} src="./assets/pokecenter2.glb" friction={2} />
+  <primitive 
+          object={pokeCenterModel.scene.clone()} 
+          castShadow 
+          receiveShadow 
+          position={[0, -0, -4]} 
+          rotation={[0, 0, 0]} 
+          scale={0.3} 
+        />
         </RigidBody>
   );
 };

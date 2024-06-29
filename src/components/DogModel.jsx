@@ -229,7 +229,7 @@ const curPage = props.props[4];
         ref={meshRef}
         object={gltf.scene}
         scale={0.1}
-        position={[-1, 0, -2.8]}
+        position={props.props[6]}
         rotation={[-Math.PI / 2, Math.PI, 0]}
         castShadow
       />
