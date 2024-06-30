@@ -99,6 +99,9 @@ body,
   position: absolute;
   width: 20px;
   top: 90%;
+}
+
+.blink {
   animation: blink 1.5s linear infinite;
 }
 
@@ -114,4 +117,14 @@ body,
   100% {
     opacity: 0;
   }
+}
+
+.minipage {
+  padding-top: 20px;
+  padding-left: 30px;
+}
+
+.bodytext {
+  padding-top: 10px;
+  padding-right: 20px;
 }

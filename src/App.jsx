@@ -1,21 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useCallback, useRef } from "react";
 import { TypeAnimation } from "react-type-animation";
 import { motion, AnimatePresence } from "framer-motion";
 import downarrow from "/assets/doubledown.svg";
 import { useNavigate } from "react-router-dom";
-import "./App.css";
+import Page1 from "./pages/Page1";
+import Page2 from "./pages/Page2";
+import Page3 from "./pages/Page3";
 
 export default function App() {
   const [currentContent, setCurrentContent] = useState(0);
   const navigate = useNavigate();
+  const isScrollingRef = useRef(false);
 
-  const handleScroll = (event) => {
-    if (event.deltaY > 0 && currentContent === 0) {
-      setCurrentContent(1);
-    } else if (event.deltaY < 0 && currentContent === 1) {
-      setCurrentContent(0);
-    }
-  };
+  const handleScroll = useCallback(
+    (event) => {
+      if (isScrollingRef.current) return;
+      isScrollingRef.current = true;
+
+      if (currentContent != 2) {
+        if (event.deltaY > 0) {
+          if (currentContent === 0) {
+            setCurrentContent(1);
+          } else if (currentContent === 1) {
+            setCurrentContent(2);
+          }
+        } else if (event.deltaY < 0) {
+          if (currentContent === 1) {
+            setCurrentContent(0);
+          } else if (currentContent === 2) {
+            setCurrentContent(1);
+          }
+        }
+      }
+
+      // Reset the flag after a short delay
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1300);
+    },
+    [currentContent]
+  );
 
   return (
     <div
@@ -41,101 +65,11 @@ export default function App() {
       </div>
       <AnimatePresence mode="wait">
         {currentContent === 0 ? (
-          <motion.div
-            key="content1"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            className="mainfont"
-            style={{
-              position: "absolute",
-              textAlign: "center",
-              width: "100%",
-            }}
-          >
-            <div
-              style={{
-                display: "grid",
-                left: "20%",
-                transform: "translateX(-50%)",
-                position: "absolute",
-                letterSpacing: "2px",
-                textAlign: "left",
-              }}
-            >
-              <TypeAnimation
-                sequence={["Welcome!", 4000]}
-                wrapper="span"
-                speed={{ type: "keyStrokeDelayInMs", value: 120 }}
-                deletionSpeed={{ type: "keyStrokeDelayInMs", value: 80 }}
-                style={{
-                  fontSize: "50px",
-                  display: "inline-block",
-                  textDecoration: "underline",
-                  textUnderlineOffset: "10px",
-                  textDecorationThickness: "2px",
-                }}
-                repeat={0}
-              />
-              <TypeAnimation
-                sequence={[
-                  "       ",
-                  1000,
-                  "Scroll down to select options.",
-                  1000,
-                ]}
-                wrapper="div"
-                speed={{ type: "keyStrokeDelayInMs", value: 120 }}
-                deletionSpeed={{ type: "keyStrokeDelayInMs", value: 80 }}
-                style={{
-                  fontSize: "15px",
-                  marginTop: "20px",
-                }}
-                repeat={0}
-              />
-            </div>
-            <div className="iconcontainer" style={{ marginTop: "20px" }}>
-              <img src={downarrow} alt="Scroll down" />
-            </div>
-          </motion.div>
+          <Page1 />
+        ) : currentContent === 1 ? (
+          <Page2 />
         ) : (
-          <motion.div
-            key="content2"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.5 }}
-            style={{
-              position: "absolute",
-              top: "40%",
-              width: "100%",
-            }}
-          >
-            <p style={{ fontSize: "20px", marginBottom: "30px" }}>
-              Select from the following:
-            </p>
-            <button
-              onClick={() => navigate("/pokemon")}
-              style={{
-                fontSize: "18px",
-                padding: "10px 20px",
-                margin: "0 10px",
-              }}
-            >
-              Pokemon (beta)
-            </button>
-            <button
-              onClick={() => navigate("/minifox")}
-              style={{
-                fontSize: "18px",
-                padding: "10px 20px",
-                margin: "0 10px",
-              }}
-            >
-              Minifox (alpha)
-            </button>
-          </motion.div>
+          <Page3 />
         )}
       </AnimatePresence>
     </div>
