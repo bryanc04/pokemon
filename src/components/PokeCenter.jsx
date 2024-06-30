@@ -131,10 +131,10 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
         </RigidBody>
          : 
         <>       
-         <Cylinder position={[0,-1.4,-4]} args={[1,0.05*progress,1]} rotation={[Math.PI/2-0.7, 0,0]}>
+         <Cylinder position={[0,-1.4,-4]} args={[scale*1,scale*0.05*progress,scale*1]} rotation={[Math.PI/2-0.7, 0,0]}>
     <meshStandardMaterial color={"white"}/>
         </Cylinder>
-        <Box position={[0,-1.4,-6]} args={[10,10,1]} rotation={[-0.7,0,0]}>
+        <Box position={[0,-1.4,-6]} args={[scale*10,scale*10,scale*1]} rotation={[-0.7,0,0]}>
     <meshStandardMaterial color={"black"}/>
         </Box>
 
