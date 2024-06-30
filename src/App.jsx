@@ -1,89 +1,133 @@
-import { Canvas, useFrame,useLoader } from '@react-three/fiber'
-import StandingDog from './components/StandingDog'
-import { Physics, RigidBody } from '@react-three/rapier'
-import { Gltf, OrbitControls, Box, Stats, Sphere, Cone, Text3D, useProgress} from '@react-three/drei'
-import DogModel from './components/DogModel'
-import SoccerBall from './components/SoccerBall'
-import React, { useRef, useEffect, useState, Suspense } from 'react';
-import  AxesHelper from './components/AxesHelper';
-import PokeCenter from './components/PokeCenter';
-import MapModel from './components/MapModel';
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
-import Loadingscreen from './components/Loadingscreen';
+import React, { useState } from "react";
+import { TypeAnimation } from "react-type-animation";
+import { motion, AnimatePresence } from "framer-motion";
+import downarrow from "/assets/doubledown.svg";
+import { useNavigate } from "react-router-dom";
+import "./App.css";
 
 export default function App() {
-  const playerRef = useRef();
-  const ballRef = useRef();
-  const rotate = useRef();
-  const [isCenter, setIsCenter] = useState(false);
-  const [cameraFlag, setCameraFlag] = useState(true);
-  const [curPage, setCurPage] = useState(null);
-  const [pokeCenterLoaded, setPokeCenterLoaded] = useState(false);
-  const { active, progress, errors, item, loaded, total } = useProgress()
-  const [dogLoad, setDogLoad] = useState(false);
+  const [currentContent, setCurrentContent] = useState(0);
+  const navigate = useNavigate();
 
-  const pokeCenterModel = useLoader(GLTFLoader, './assets/pokecenter2.glb');
-  console.log(active, progress, errors, item, loaded, total)
- 
-  useEffect(() => {
-    if (pokeCenterModel && progress==100 ) {
-      setPokeCenterLoaded(true);
-      console.log("Loaded")
+  const handleScroll = (event) => {
+    if (event.deltaY > 0 && currentContent === 0) {
+      setCurrentContent(1);
+    } else if (event.deltaY < 0 && currentContent === 1) {
+      setCurrentContent(0);
     }
-  }, [pokeCenterModel])
+  };
 
-
-
-
-
-
-  
   return (
-    <Suspense fallback={<Loadingscreen percent={progress}/>}>
-    <Canvas shadow 
-    // onPointerDown={(e) => e.target.requestPointerLock()}
-     camera={{ position: [0, 6, 14], wfov: 42 }}>
-
-
-      <Physics gravity={[0, -1, 0]}  >
-      <directionalLight intensity={7} castShadow shadow-bias={-0.0004} position={[-20, 20, 20]} />
-      <ambientLight intensity={2} />
-{  isCenter && pokeCenterLoaded ? 
-<>
-{dogLoad && <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />}
-{/* <RigidBody type="kinematicVelocity">
-          <Gltf position={[0, 0, -5]} rotation={[0, 0, 0]} scale={0.05} src="./assets/soccerball.glb" />
-        </RigidBody> */}
-
-<PokeCenter cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setDogLoad={setDogLoad}/>
-</>
-:     
-<>
- <DogModel ref={playerRef} props={[isCenter, setIsCenter, cameraFlag, setCameraFlag, curPage, setCurPage, [0, 0, -2.8]]} />
-        <SoccerBall playerRef={playerRef} ballRef={ballRef} />
-                          
-
-
-<MapModel />
-                  
-<PokeCenter 
-cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setDogLoad={setDogLoad} scale={0.0000000001}
-/>
-
-        </>
-}
-{/*           
-                   <Box position={[0, -2, 0]} args={[10, 1, 10]} >
-          <meshStandardMaterial color="springgreen" />
-        </Box> */}
-
-
-      </Physics>
-      <Stats/>
-
-      <AxesHelper />
-      
-    </Canvas>
-    </Suspense>
-  )
+    <div
+      className="App"
+      onWheel={handleScroll}
+      style={{
+        overflow: "hidden",
+        height: "100vh",
+        backgroundImage: "url(/assets/background.jpg)",
+        backgroundSize: "cover",
+      }}
+    >
+      <div
+        style={{
+          fontFamily: "Chopin Script",
+          position: "absolute",
+          left: "5%",
+          top: "5%",
+          fontSize: "40px",
+        }}
+      >
+        Chung
+      </div>
+      <AnimatePresence mode="wait">
+        {currentContent === 0 ? (
+          <motion.div
+            key="content1"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="mainfont"
+            style={{
+              position: "absolute",
+              textAlign: "center",
+              width: "100%",
+            }}
+          >
+            <div
+              style={{
+                display: "grid",
+                left: "20%",
+                transform: "translateX(-50%)",
+                position: "absolute",
+                letterSpacing: "2px",
+                textAlign: "left",
+              }}
+            >
+              <TypeAnimation
+                sequence={["Welcome!", 4000]}
+                wrapper="span"
+                speed={{ type: "keyStrokeDelayInMs", value: 120 }}
+                deletionSpeed={{ type: "keyStrokeDelayInMs", value: 80 }}
+                style={{
+                  fontSize: "50px",
+                  display: "inline-block",
+                  textDecoration: "underline",
+                  textUnderlineOffset: "10px",
+                  textDecorationThickness: "2px",
+                }}
+                repeat={0}
+              />
+              <TypeAnimation
+                sequence={[
+                  "       ",
+                  1000,
+                  "Scroll down to select options.",
+                  1000,
+                ]}
+                wrapper="div"
+                speed={{ type: "keyStrokeDelayInMs", value: 120 }}
+                deletionSpeed={{ type: "keyStrokeDelayInMs", value: 80 }}
+                style={{
+                  fontSize: "15px",
+                  marginTop: "20px",
+                }}
+                repeat={0}
+              />
+            </div>
+            <div className="iconcontainer" style={{ marginTop: "20px" }}>
+              <img src={downarrow} alt="Scroll down" />
+            </div>
+          </motion.div>
+        ) : (
+          <motion.div
+            key="content2"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            style={{
+              position: "absolute",
+              top: "40%",
+              width: "100%",
+            }}
+          >
+            <p style={{ fontSize: "20px", marginBottom: "30px" }}>
+              Select from the following:
+            </p>
+            <button
+              onClick={() => navigate("/pokemon")}
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                margin: "0 10px",
+              }}
+            >
+              Pokemon (beta)
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
+  );
 }

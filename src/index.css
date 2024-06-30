@@ -67,11 +67,51 @@ button:focus-visible {
   }
 }
 
-html, body, #root {
+html,
+body,
+#root {
   width: 100%;
   height: 100%;
   margin: 0;
   padding: 0;
   overflow: hidden;
   display: block;
+}
+
+.App {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  text-align: center;
+  font-family: "Antic Didone";
+}
+
+.mainfont {
+  display: flex;
+  justify-content: center;
+  height: inherit;
+  align-items: center;
+  font-family: "Antic Didone";
+  color: "black";
+}
+
+.iconcontainer {
+  position: absolute;
+  width: 20px;
+  top: 90%;
+  animation: blink 1.5s linear infinite;
+}
+
+@keyframes blink {
+  0% {
+    opacity: 0;
+  }
+
+  50% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+  }
 }
