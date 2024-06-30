@@ -6,7 +6,7 @@ import { useAnimations, OrbitControls } from '@react-three/drei';
 import React, { useRef, useEffect, useState, forwardRef } from 'react';
 
 
-const StandingDog = () => {
+const StandingDog = ({scale=1}) => {
   const gltf = useLoader(GLTFLoader, '/assets/untitled.glb');
   const meshRef = useRef();
   const rigidbody = useRef();
@@ -31,7 +31,7 @@ const StandingDog = () => {
     <primitive
     ref={meshRef}
     object={gltf.scene}
-    scale={0.25}
+    scale={scale * 0.25}
     position={[0, 0, -5.1]}
     rotation={[-Math.PI / 2, Math.PI, Math.PI]}
   />

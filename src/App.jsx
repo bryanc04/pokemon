@@ -66,6 +66,9 @@ export default function App() {
 
 <MapModel />
                   
+<PokeCenter 
+cameraFlag={cameraFlag} setCameraFlag={setCameraFlag} curPage={curPage} setCurPage={setCurPage} pokeCenterModel={pokeCenterModel} setDogLoad={setDogLoad} scale={0.0000000001}
+/>
 
         </>
 }

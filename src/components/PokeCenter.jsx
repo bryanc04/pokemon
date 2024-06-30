@@ -18,7 +18,7 @@ const pages = {
     'Honors': Honors,
     'Fun Facts!': () => <></>
   };
-const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel, setDogLoad}) => {
+const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterModel, setDogLoad, scale=1}) => {
     const keysPressed1 = useRef({ arrowup: false, arrowdown: false, enter: false});
     const [curIndex, setCurIndex] = useState(0);
     const props = { setCurPage, setCameraFlag };
@@ -91,7 +91,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
         return (
           <Text3D
             key={index}
-            size={0.03}
+            size={scale*0.03}
             position={[-0.55, 1.05-index*0.08, -5.556]}
             scale={[1, 1, 0.1]}
             font={'/assets/alike.json'}
@@ -107,7 +107,7 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
     <Text3D
             size={0.01}
             position={[-0.55, 0.55, -5.556]}
-            scale={[1, 1, 0.1]}
+            scale={[scale*1, scale*1, scale*0.1]}
             font={'/assets/pixel.json'}
           >
             press enter to select / press esc to exit view
@@ -115,28 +115,22 @@ const PokeCenter = ({cameraFlag, setCameraFlag, curPage, setCurPage, pokeCenterM
           </Text3D> </>
 }
 
-<Text3D position={[0.15, 0.1, -4.5]} size={0.05} rotation={[0,-0.8,0]} scale={[1,1,0.2]} font={"./assets/roboto.json"}>
+<Text3D position={[0.15, 0.1, -4.5]} size={0.05} rotation={[0,-0.8,0]} scale={[scale*1,scale*1,scale*0.2]} font={"./assets/roboto.json"}>
   &lt; - Press Enter Here!
     <meshStandardMaterial color={'blue'} />
 
-  </Text3D>        <StandingDog/>
+  </Text3D>        <StandingDog scale={scale}/>
   <primitive 
-          object={pokeCenterModel.scene.clone()} 
+          object={pokeCenterModel.scene} 
           castShadow 
           receiveShadow 
           position={[0, -0, -4]} 
           rotation={[0, 0, 0]} 
-          scale={0.3} w
+          scale={0.3*scale} 
         />
         </RigidBody>
          : 
         <>       
-         <Cylinder position={[0,-1.4,-4]} args={[1,0.05*progress,1]} rotation={[Math.PI/2-0.7, 0,0]}>
-    <meshStandardMaterial color={"white"}/>
-        </Cylinder>
-        <Box position={[0,-1.4,-6]} args={[10,10,1]} rotation={[-0.7,0,0]}>
-    <meshStandardMaterial color={"black"}/>
-        </Box>
 
         </>
         }</>
