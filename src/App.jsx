@@ -125,6 +125,16 @@ export default function App() {
             >
               Pokemon (beta)
             </button>
+            <button
+              onClick={() => navigate("/minifox")}
+              style={{
+                fontSize: "18px",
+                padding: "10px 20px",
+                margin: "0 10px",
+              }}
+            >
+              Minifox (alpha)
+            </button>
           </motion.div>
         )}
       </AnimatePresence>
