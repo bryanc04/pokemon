@@ -9,20 +9,11 @@ import Minifox from "./Minifox/Minifox";
 ReactDOM.createRoot(document.getElementById("root")).render(
   <BrowserRouter>
     <Routes>
-      <Route path="/" element={<App />} />
       <Route
-        path="/Pokemon"
+        path="/"
         element={
           <Suspense fallback={<Loader1 />}>
             <Pokemon />
-          </Suspense>
-        }
-      />
-      <Route
-        path="/Minifox"
-        element={
-          <Suspense fallback={<Loader1 />}>
-            <Minifox />
           </Suspense>
         }
       />
