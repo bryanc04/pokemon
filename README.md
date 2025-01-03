@@ -1,3 +1,2 @@
-# bryanchu.ng
-Personal Website
-# pokemon
+# (public until PI Day)
+
